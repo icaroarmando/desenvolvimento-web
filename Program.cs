@@ -43,4 +43,33 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapGet("/api/ola",()=>
+    {
+        return "Olá! Minha primeira Minimal API.";
+    });
+
+app.MapGet("/api/produtos", () =>
+{
+    return new[]
+    {
+        new {ID =1, Nome = "Notebook", Preco =3500.00},
+        new {ID =2, Nome = "Mouse", Preco =80.00},
+        new {ID =3, Nome = "Teclado", Preco =150.00},
+    };
+});
+
+app.MapGet("/api/produtos/{id}", (int id) =>
+{
+   if (id ==1)
+    {
+        return Results.Ok(new
+        {
+            ID = 1,
+            Nome = "Notebook",
+            Preco = 3500.00
+        });
+    }
+    return Results.NotFound();
+});
+
 app.Run();
