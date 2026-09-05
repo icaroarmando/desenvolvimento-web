@@ -31,14 +31,14 @@ namespace DW01.Controllers
             return Content($"Produto recebido: {id}");
         }
         public IActionResult BuscarProduto(string? nome)
-        { 
+        {
             if (string.IsNullOrEmpty(nome))
             {
                 return View();
             }
             return Content($"Produto pesquisado: {nome}");
-        
-         }
+
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -48,6 +48,22 @@ namespace DW01.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public IActionResult CriarProduto()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CriarProduto(Produto produto)
+        {
+            if (ModelState.IsValid)
+            {
+                // Aqui você pode salvar o produto no banco de dados ou realizar outras ações necessárias
+                return View(produto);
+            }
+            return Content($"Produto{produto.Nome} válido!");
         }
     }
 }
